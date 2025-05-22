@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
 html,
 body {
   padding: 0;
@@ -15,11 +20,18 @@ a {
   box-sizing: border-box;
 }
 
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display;
+}
+
+code, pre {
+  @apply font-mono;
+}
+
 /* Markdown styling */
 .markdown-body {
-  line-height: 1.6;
-  color: #24292e;
-  font-size: 16px;
+  @apply text-base leading-relaxed text-gray-800;
 }
 
 .markdown-body h1,
@@ -28,126 +40,84 @@ a {
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
+  @apply font-display font-bold mb-4 mt-6;
 }
 
 .markdown-body h1 {
-  font-size: 2em;
-  border-bottom: 1px solid #eaecef;
-  padding-bottom: 0.3em;
+  @apply text-4xl border-b border-gray-200 pb-2;
 }
 
 .markdown-body h2 {
-  font-size: 1.5em;
-  border-bottom: 1px solid #eaecef;
-  padding-bottom: 0.3em;
+  @apply text-3xl border-b border-gray-200 pb-2;
 }
 
 .markdown-body h3 {
-  font-size: 1.25em;
+  @apply text-2xl;
 }
 
 .markdown-body h4 {
-  font-size: 1em;
+  @apply text-xl;
 }
 
 .markdown-body h5 {
-  font-size: 0.875em;
+  @apply text-lg;
 }
 
 .markdown-body h6 {
-  font-size: 0.85em;
-  color: #6a737d;
+  @apply text-base text-gray-600;
 }
 
 .markdown-body p {
-  margin-top: 0;
-  margin-bottom: 16px;
+  @apply mb-4;
 }
 
 .markdown-body ul,
 .markdown-body ol {
-  padding-left: 2em;
-  margin-top: 0;
-  margin-bottom: 16px;
+  @apply pl-8 mb-4;
 }
 
 .markdown-body blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
+  @apply pl-4 border-l-4 border-gray-300 text-gray-600 italic my-4;
 }
 
 .markdown-body code {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-  padding: 0.2em 0.4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(27, 31, 35, 0.05);
-  border-radius: 3px;
+  @apply font-mono text-sm bg-gray-100 px-1.5 py-0.5 rounded;
 }
 
 .markdown-body pre {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-  word-wrap: normal;
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #f6f8fa;
-  border-radius: 3px;
+  @apply font-mono text-sm bg-gray-900 text-white p-4 rounded-lg overflow-x-auto my-4;
 }
 
 .markdown-body pre code {
-  background-color: transparent;
-  padding: 0;
+  @apply bg-transparent p-0 text-inherit;
 }
 
 .markdown-body a {
-  color: #0366d6;
-  text-decoration: none;
-}
-
-.markdown-body a:hover {
-  text-decoration: underline;
+  @apply text-blue-600 hover:text-blue-800 hover:underline;
 }
 
 .markdown-body table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  width: 100%;
-  overflow: auto;
-  margin-top: 0;
-  margin-bottom: 16px;
+  @apply w-full border-collapse mb-4;
 }
 
 .markdown-body table th {
-  font-weight: 600;
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
+  @apply font-semibold p-3 border border-gray-300 bg-gray-50;
 }
 
 .markdown-body table td {
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
+  @apply p-3 border border-gray-300;
 }
 
 .markdown-body table tr {
-  background-color: #fff;
-  border-top: 1px solid #c6cbd1;
+  @apply bg-white;
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: #f6f8fa;
+  @apply bg-gray-50;
 }
 
 .markdown-body img {
-  max-width: 100%;
-  box-sizing: content-box;
+  @apply max-w-full rounded-lg shadow-sm my-4;
 }
 
 .markdown-body hr {

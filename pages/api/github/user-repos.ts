@@ -27,7 +27,7 @@ export default async function handler(
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': `token ${session.accessToken}`,
-        'User-Agent': 'GitHub-Docs-Hub'
+        'User-Agent': 'CodeBooks'
       }
     };
 

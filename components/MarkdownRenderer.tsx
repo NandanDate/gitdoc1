@@ -1,10 +1,18 @@
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 interface MarkdownRendererProps {
   content: string;
+}
+
+interface CodeProps {
+  node?: any;
+  inline?: boolean;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
@@ -13,11 +21,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }) {
+          code({ node, inline, className, children, ...props }: CodeProps) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <SyntaxHighlighter
-                style={tomorrow}
+                style={vscDarkPlus}
                 language={match[1]}
                 PreTag="div"
                 {...props}

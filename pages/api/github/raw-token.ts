@@ -46,7 +46,7 @@ export default async function handler(
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': `Bearer ${token}`,
-        'User-Agent': 'GitHub-App-Node-Client',
+        'User-Agent': 'CodeBooks',
         'Content-Type': 'application/json'
       }
     };
