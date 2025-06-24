@@ -22,77 +22,23 @@ export default async function handler(
     // Make a request to GitHub API to get user's repositories
     const options = {
       hostname: 'api.github.com',
-      path: '/user/repos?per_page=100&sort=updated&visibility=all&affiliation=owner,collaborator,organization_member',
+      path: '/user/repos?per_page=100&sort=updated',
       method: 'GET',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${session.accessToken}`,
+        'Authorization': `token ${session.accessToken}`,
         'User-Agent': 'CodeBooks'
       }
     };
 
     try {
       const reposData = await makeRequest(options);
+      const repos = JSON.parse(reposData);
       
-      // Log the raw response for debugging
-      console.log('Raw GitHub API Response:', reposData);
-      
-      let repos;
-      try {
-        repos = JSON.parse(reposData);
-        
-        // Log parsed data for debugging
-        console.log('GitHub API Response Stats:', {
-          totalRepos: repos.length,
-          privateRepos: repos.filter(r => r.private).length,
-          publicRepos: repos.filter(r => !r.private).length,
-          repoDetails: repos.map(r => ({
-            name: r.full_name,
-            private: r.private,
-            permissions: r.permissions
-          }))
-        });
-        
-        // Validate response format
-        if (!Array.isArray(repos)) {
-          console.error('Invalid response format:', repos);
-          throw new Error('Invalid response format from GitHub API');
-        }
-        
-        // Return the repositories data
-        return res.status(200).json(repos);
-      } catch (parseError) {
-        console.error('Failed to parse GitHub response:', parseError);
-        console.error('Raw response:', reposData);
-        throw new Error('Failed to parse GitHub API response');
-      }
+      // Return the repositories data
+      return res.status(200).json(repos);
     } catch (apiError) {
-      // Debug information about the error
-      console.error("GitHub API Error Details:", {
-        message: apiError.message,
-        headers: apiError.headers,
-        response: apiError.response,
-        stack: apiError.stack
-      });
-      
-      // Check for specific error types
-      if (apiError.message.includes('Bad credentials')) {
-        return res.status(401).json({
-          error: "Authentication failed",
-          message: "Your GitHub token is invalid or expired. Please try signing in again."
-        });
-      } else if (apiError.message.includes('API rate limit exceeded')) {
-        return res.status(429).json({
-          error: "Rate limit exceeded",
-          message: "GitHub API rate limit exceeded. Please try again later."
-        });
-      } else if (apiError.message.includes('Not Found')) {
-        return res.status(404).json({
-          error: "Not found",
-          message: "The requested resource was not found. Please check your permissions."
-        });
-      }
-      
+      console.error("GitHub API error:", apiError);
       return res.status(500).json({
         error: "GitHub API error",
         message: apiError.message

@@ -17,7 +17,7 @@ export default NextAuth({
       authorization: {
         url: "https://github.com/login/oauth/authorize",
         params: { 
-          scope: "read:user read:org repo repo:status repo_deployment",
+          scope: "read:user read:org repo",
           prompt: "consent",
           access_type: "offline",
           response_type: "code"

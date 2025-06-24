@@ -73,7 +73,7 @@ function getChangedFiles(payload: any): string[] {
     });
   }
   
-  return Array.from(new Set(files)); // Remove duplicates
+  return [...new Set(files)]; // Remove duplicates
 }
 
 // Verify webhook signature
